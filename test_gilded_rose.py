@@ -25,6 +25,12 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(28, items[0].quality)
 
+    def test_reg_quality_low(self):
+        items = [create_item.create("Elixir of the Mongoose", 5, -10)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(0, items[0].quality)
+
     def test_brie_sell_in(self):
         items = [create_item.create("Aged Brie", 5, 40)]
         gilded_rose = GildedRose(items)
@@ -42,6 +48,18 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(50, items[0].quality)
+
+    def test_brie_quality_over(self):
+        items = [create_item.create("Aged Brie", 5, 75)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(50, items[0].quality)
+
+    def test_brie_quality_low(self):
+        items = [create_item.create("Aged Brie", 5, -5)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(0, items[0].quality)
 
     def test_sulfuras_sell_in(self):
         items = [create_item.create("Sulfuras", 10, 80)]
@@ -61,6 +79,12 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(80, items[0].quality)
 
+    def test_sulfuras_quality_over(self):
+        items = [create_item.create("Sulfuras", 10, 130)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(80, items[0].quality)
+
     def test_conjured_quality(self):
         items = [create_item.create("Conjured Mana Cake", 6, 15)]
         gilded_rose = GildedRose(items)
@@ -71,7 +95,37 @@ class GildedRoseTest(unittest.TestCase):
         items = [create_item.create("Conjured Stamina Pancakes", 12, 1)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEqual(0, items[0].quality) 
+        self.assertEqual(0, items[0].quality)
+
+    def test_backstage_quality(self):
+        items = [create_item.create("Backstage passes to a TAFKAL80ETC concert", 18, 48)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(49, items[0].quality)
+
+    def test_backstage_quality_over(self):
+        items = [create_item.create("Backstage passes to a TAFKAL80ETC concert", 18, 95)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(50, items[0].quality)
+
+    def test_backstage_soon(self):
+        items = [create_item.create("Backstage passes to a TAFKAL80ETC concert", 10, 30)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(32, items[0].quality)
+
+    def test_backstage_very_soon(self):
+        items = [create_item.create("Backstage passes to a TAFKAL80ETC concert", 5, 30)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(33, items[0].quality)
+
+    def test_backstage_expired(self):
+        items = [create_item.create("Backstage passes to a TAFKAL80ETC concert", -1, 30)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(0, items[0].quality)
 
 
 if __name__ == '__main__':

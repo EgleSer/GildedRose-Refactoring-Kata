@@ -12,6 +12,11 @@ class RegularItem(Item):
                 self.quality -= 2
             else:
                 self.quality -= 1
+        elif self.quality <= 0:
+            self.quality = 0
+        else:
+            self.quality = 50
+            
         self.sell_in -= 1
 
 
@@ -22,15 +27,22 @@ class ItemCreate(object):
         if name == "Sulfuras":
             return Sulfuras(name, sell_in, quality)
         if "Conjured" in name:
-            return Conjured(name, sell_in, quality)            
+            return Conjured(name, sell_in, quality)
+        if "Backstage" in name:
+            return Backstage(name, sell_in, quality)           
         return RegularItem(name, sell_in, quality)
 
 
 class AgedBrie(RegularItem):
     """'Aged Brie' actually increases in Quality the older it gets"""
     def update_quality(self):
-        if self.quality < 50:
+        if 0 < self.quality < 50:
             self.quality += 1
+        elif self.quality <= 0:
+            self.quality = 0
+        else:
+            self.quality = 50
+
         self.sell_in -= 1
 
 
@@ -48,5 +60,24 @@ class Conjured(RegularItem):
             self.quality -= 2
         else:
             self.quality = 0
+
         self.sell_in -= 1
 
+
+class Backstage(RegularItem):
+    """Quality increases by 2 when there are 10 days or less and by 3 when there are 
+    5 days or less but Quality drops to 0 after the concert"""
+    def update_quality(self):
+        if 10 >= self.sell_in > 5:
+            self.quality += 2
+        elif 5 >= self.sell_in > 0:
+            self.quality += 3
+        elif self.sell_in < 0:
+            self. quality = 0
+        else:
+            self.quality += 1
+
+        if self.quality > 50:
+            self.quality = 50
+
+        self.sell_in -= 1
