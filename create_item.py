@@ -1,12 +1,8 @@
-class RegularItem(object):
-    def __init__(self, name, sell_in, quality):
-        self.name = name
-        self.sell_in = sell_in
-        self.quality = quality
+from gilded_rose import Item
 
-    def __repr__(self):
-        return f'{self.name}, {self.sell_in}, {self.quality}'
 
+class RegularItem(Item):
+    """I needed Item class to have  update_quality function, but altering with Item class is against the rules"""
     def update_quality(self):
         """The Quality of an item is never more than 50.
         The Quality of an item is never negative"""
@@ -19,3 +15,6 @@ class RegularItem(object):
         self.sell_in = self.sell_in - 1
 
 
+class ItemCreate(object):
+    def create(self, name, sell_in, quality):
+        return RegularItem(name, sell_in, quality)
