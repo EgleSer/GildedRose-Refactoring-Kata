@@ -16,7 +16,7 @@ class RegularItem(Item):
             self.quality = 0
         else:
             self.quality = 50
-            
+
         self.sell_in -= 1
 
 
@@ -24,7 +24,7 @@ class ItemCreate(object):
     def create(self, name, sell_in, quality):
         if name == "Aged Brie":
             return AgedBrie(name, sell_in, quality)
-        if name == "Sulfuras":
+        if "Sulfuras" in name:
             return Sulfuras(name, sell_in, quality)
         if "Conjured" in name:
             return Conjured(name, sell_in, quality)
