@@ -8,19 +8,19 @@ create_item = ItemCreate()
 
 class GildedRoseTest(unittest.TestCase):
     def test_reg_sell_in(self):
-        items = [create_item.create("Cheese", 5, 30)]
+        items = [create_item.create("Elixir of the Mongoose", 5, 30)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(4, items[0].sell_in)
 
     def test_reg_quality(self):
-        items = [create_item.create("Cheese", 5, 30)]
+        items = [create_item.create("Elixir of the Mongoose", 5, 30)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(29, items[0].quality)
 
     def test_reg_quality_passed(self):
-        items = [create_item.create("Cheese", 0, 30)]
+        items = [create_item.create("Elixir of the Mongoose", 0, 30)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(28, items[0].quality)
@@ -60,6 +60,18 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(80, items[0].quality)
+
+    def test_conjured_quality(self):
+        items = [create_item.create("Conjured Mana Cake", 6, 15)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(13, items[0].quality)       
+
+    def test_conjured_quality_low(self):
+        items = [create_item.create("Conjured Stamina Pancakes", 12, 1)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(0, items[0].quality) 
 
 
 if __name__ == '__main__':

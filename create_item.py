@@ -21,6 +21,8 @@ class ItemCreate(object):
             return AgedBrie(name, sell_in, quality)
         if name == "Sulfuras":
             return Sulfuras(name, sell_in, quality)
+        if "Conjured" in name:
+            return Conjured(name, sell_in, quality)            
         return RegularItem(name, sell_in, quality)
 
 
@@ -31,8 +33,20 @@ class AgedBrie(RegularItem):
             self.quality += 1
         self.sell_in -= 1
 
+
 class Sulfuras(RegularItem):
     """'Sulfuras', being a legendary item, never has to be sold. It's Quality is 80 and it never alters"""
     def update_quality(self):
         self.quality = 80
         self.sell_in = "N/A"
+
+
+class Conjured(RegularItem):
+    """'Conjured' items degrade in Quality twice as fast as normal items"""
+    def update_quality(self):
+        if self.quality > 2:
+            self.quality -= 2
+        else:
+            self.quality = 0
+        self.sell_in -= 1
+
