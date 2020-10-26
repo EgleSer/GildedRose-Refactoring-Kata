@@ -2,7 +2,7 @@
 My attempt to refactor GildedRose Kata for Python.
 
 ## Setup
-Created using Python 3.7.8
+Created using Python 3.7.8\
 Testing done using Pytest 6.1.1
 
 ## The task
