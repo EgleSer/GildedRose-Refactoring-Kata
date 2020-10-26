@@ -6,10 +6,10 @@ create_item = ItemCreate()
 
 
 def test_reg_sell_in():
-        items = [create_item.create("Elixir of the Mongoose", 5, 30)]
-        gilded_rose = GildedRose(items)
-        gilded_rose.update_quality()
-        assert items[0].sell_in == 4
+    items = [create_item.create("Elixir of the Mongoose", 5, 30)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].sell_in == 4
 
 
 def test_reg_quality():
